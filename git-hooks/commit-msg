@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+## ^\[M176069-\d+\]]\[[\u4E00-\u9FA5]+(\s\&\s([\u4E00-\u9FA5]+))*\]\s
+commit_regex='^(\[((M176069-[0-9]+)|(TECH))\]\[\S+(\s\&\s\S+)*\]|merge)\s'
+error_msg='Aborting commit. Commit message must start with "[M176069-XX][YOUR NAME] " or "Merge"'
+if ! grep -iqE "$commit_regex" "$1"; then
+  echo "$error_msg" >&2
+  exit 1
+fi
