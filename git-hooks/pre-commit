@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+mvn checkstyle:check > target/checkstyle.log
+if [ "$?" -ne 0 ]
+then
+  echo "CheckStyle FAILED:";
+  cat target/checkstyle.log | grep ERROR | grep src
+  exit 1
+fi
